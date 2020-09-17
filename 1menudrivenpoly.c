@@ -78,8 +78,10 @@ int multiplication(struct poly a1[10],int la,struct poly b1[10],int lb)
         for(k=0;k<=q;k++)
         {
             if((a1[i].exp+b1[j].exp)==d[k].exp)
+            {
             d[k].coeff+=(a1[i].coeff*b1[i].coeff);
             flag=1;
+            }    
         }
         if(flag=0)
         {
