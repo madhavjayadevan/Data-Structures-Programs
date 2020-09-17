@@ -4,7 +4,7 @@ struct poly{
     int coeff;
     int exp;
 
-}a[10],b[10],c[10];
+}a[10],b[10],c[10],d[10];
 
 int read(struct poly r[10])
 {
@@ -66,6 +66,31 @@ int addition(struct poly a1[10],int la,struct poly b1[10],int lb)
     }
     return k;
 }
+
+int multiplication(struct poly a1[10],int la,struct poly b1[10],int lb)
+{
+    
+    int q=0,i,j,k,flag;
+    for(i=0;i<la;i++)
+    for(j=0;j<lb;j++)
+    {
+        flag=0;
+        for(k=0;k<=q;k++)
+        {
+            if((a1[i].exp+b1[j].exp)==d[k].exp)
+            d[k].coeff+=(a1[i].coeff*b1[i].coeff);
+            flag=1;
+        }
+        if(flag=0)
+        {
+            d[q].coeff=a1[i].coeff*b1[j].coeff;
+            d[q].exp=a1[i].exp+b1[j].exp;
+            q++;
+        }
+    }
+
+    return q;
+}
 void main()
 {
     int lc,la,lb,i;
@@ -77,7 +102,7 @@ void main()
     lb=read(b);
     printf("\nThe Entered Polynomial is:");
     show(b,lb);
-    lc=addition(a,la,b,lb);
-    printf("\nSum is:");
-    show(c,lc);
+    lc=multiplication(a,la,b,lb);
+    printf("\nProduct is:");
+    show(d,lc);
 }
