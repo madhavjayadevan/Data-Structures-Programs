@@ -57,7 +57,7 @@ int addition(struct poly a1[10],int la,struct poly b1[10],int lb)
             if(c[j].exp==b1[i].exp)
             flag=1;
         }
-        if(flag=0)
+        if(flag==0)
         {
             c[k].coeff==b1[i].coeff;
             c[k].exp=b1[i].exp;
@@ -81,9 +81,9 @@ int multiplication(struct poly a1[10],int la,struct poly b1[10],int lb)
             {
             d[k].coeff+=(a1[i].coeff*b1[i].coeff);
             flag=1;
-            }    
+            }
         }
-        if(flag=0)
+        if(flag==0)
         {
             d[q].coeff=a1[i].coeff*b1[j].coeff;
             d[q].exp=a1[i].exp+b1[j].exp;
