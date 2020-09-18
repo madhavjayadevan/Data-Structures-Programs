@@ -12,7 +12,7 @@ int read(struct poly r[10])
     printf("\nEnter the total number of terms:");
     scanf("%d",&l);
     for(i=0;i<l;i++){
-        printf("term %d",i+1);
+        printf("\nterm %d",i+1);
         printf("\nCoefficent:");
         scanf("%d",&r[i].coeff);
         printf("Exponent:");
@@ -31,38 +31,46 @@ int show(struct poly r[10],int len)
 }
 int addition(struct poly a1[10],int la,struct poly b1[10],int lb)
 {
-    int i,j,k=0,flag;
-    for(i=0;i<la;i++){
-        flag=0;
-        for(j=0;j<lb;j++)
-            if(a1[i].exp==b1[i].exp)
-            {
-                c[k].exp=a[i].exp;
-                c[k].coeff=a1[i].coeff+b1[i].coeff;
-                k++;
-                flag=1;
-                break;
-            }
-        if(flag==0){
-            c[k].exp=a1[i].exp;
-            c[k].coeff=a1[i].coeff;
-            k++;
-        }
-    }
-    for(i=0;i<lb;i++)
+    int i=0,j=0,k=0;
+    while(i<la && j<lb)
     {
-        flag=0;
-        for(j=0;j<k;j++)
+        if(a1[i].exp==b1[j].exp)
         {
-            if(c[j].exp==b1[i].exp)
-            flag=1;
-        }
-        if(flag==0)
-        {
-            c[k].coeff==b1[i].coeff;
-            c[k].exp=b1[i].exp;
+            c[k].coeff=a1[i].coeff+b1[j].coeff;
+            c[k].exp=a1[i].exp;
+            i++;
+            j++;
             k++;
         }
+        else if(a1[i].exp>b1[j].exp)
+        {
+            c[k].coeff=a1[i].coeff;
+            c[k].exp=a1[i].exp;
+            i++;
+            k++;
+        }
+        else if(a1[i].exp<b1[j].exp)
+        {
+            c[k].coeff=b1[j].coeff;
+            c[k].exp=b1[j].exp;
+            j++;
+            k++;
+        }
+        
+    }
+    while(i<la)
+	{
+		c[k].coeff=a[i].coeff;
+		c[k].exp=a[i].exp;
+		i++;
+		k++;
+	}
+    while (j<lb)
+    {
+        c[k].coeff=b1[i].coeff;
+        c[k].exp=b1[i].exp;
+        j++;
+        k++;
     }
     return k;
 }
@@ -79,7 +87,7 @@ int multiplication(struct poly a1[10],int la,struct poly b1[10],int lb)
         {
             if((a1[i].exp+b1[j].exp)==d[k].exp)
             {
-            d[k].coeff+=(a1[i].coeff*b1[i].coeff);
+            d[k].coeff+=(a1[i].coeff*b1[j].coeff);
             flag=1;
             }
         }
@@ -91,20 +99,44 @@ int multiplication(struct poly a1[10],int la,struct poly b1[10],int lb)
         }
     }
 
-    return q;
+    return q+1;
 }
 void main()
 {
-    int lc,la,lb,i;
-    printf("First Polynomial");
-    la=read(a);
-    printf("\nThe Entered Polynomial is:");
-    show(a,la);
-    printf("Second Polynomial");
-    lb=read(b);
-    printf("\nThe Entered Polynomial is:");
-    show(b,lb);
-    lc=multiplication(a,la,b,lb);
-    printf("\nProduct is:");
-    show(d,lc);
+    int response;
+    int lc,ld,la,lb,i;
+    char repeat='y';
+    while(repeat=='y')
+    {
+        printf("<<<First Polynomial>>>");
+        la=read(a);
+        printf("\nThe Entered Polynomial is:");
+        show(a,la);
+        printf("\n\n<<<Second Polynomial>>>");
+        lb=read(b);
+        printf("\nThe Entered Polynomial is:");
+        show(b,lb);
+        printf("\n\n\n*****SELECT THE OPERATION*****\n1. Polynomial addition\n2.Polynomial Multiplication\n");
+        scanf("%d",&response);
+        if(response==1)
+        {
+            lc=addition(a,la,b,lb);
+            printf("\nThe Sum is:\n");
+            show(c,lc);
+        }
+        else if(response==2)
+        {
+            ld=multiplication(a,la,b,lb);
+            printf("\nThe product is:\n");
+            show(d,ld);
+        }
+        else 
+        {
+            printf("Wrong Input");
+        }
+        printf("\n\nDo you Want to Continue?(y/n)");
+        scanf("%s",&repeat);
+        
+    }   
+
 }
