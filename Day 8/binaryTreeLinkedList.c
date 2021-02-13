@@ -9,10 +9,12 @@ void displaypreorder(struct node *ptr)
 {
     if(ptr != NULL)
     {
-        printf("%d\t", ptr -> data);
+        printf("%d  ", ptr -> data);
         displaypreorder(ptr -> left);
         displaypreorder(ptr -> right);
     }
+    else
+    printf("-  ");
 }
 struct node * buildtree(struct node *ptr, int data)
 {
@@ -44,7 +46,7 @@ struct node * buildtree(struct node *ptr, int data)
     }
     else
         ptr -> right = NULL;
-        return ptr;
+    return ptr;
 }
 struct node * searchnode(struct node *ptr, int key)
 {
